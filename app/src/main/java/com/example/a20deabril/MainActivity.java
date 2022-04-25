@@ -17,14 +17,9 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox cbMinuscula;
 
     private String palabra;
-    private String contarVocal;
+    private String mensaje;
     private boolean esMinuscula;
-    private int contar = 0;
-    private char a = 'a';
-    private char e = 'e';
-    private char i = 'i';
-    private char o = 'o';
-    private char u = 'u';
+    private int contar ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +35,36 @@ public class MainActivity extends AppCompatActivity {
         //Lambda functions o funciones de flecha
         //Es igual al codigo anterior
         // INVESTIGAR LAS FUNCIONES DE LANBDA FUCTIONS
-        btnProcesar.setOnClickListener(view -> obtenerInformacion());
+        btnProcesar.setOnClickListener(view -> Datos());
+        btnContar.setOnClickListener(view -> contarVocal());
+    }
+
+    private void contarVocal() {
+        Datos();
+        if (palabra.contains("a") || palabra.contains("A")) {
+            contar += 1;
+        }
+        if (palabra.contains("e") || palabra.contains("E")) {
+            contar += 1;
+        }
+        if (palabra.contains("i") || palabra.contains("I")) {
+            contar += 1;
+        }
+        if (palabra.contains("o") || palabra.contains("O")) {
+            contar += 1;
+        }
+        if (palabra.contains("u") || palabra.contains("U")) {
+            contar += 1;
+        }
+        mensaje = "La palabra tiene: " + this.contar + " vocales";
+        contar = 0;
+        Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
+    }
+
+
+    private void Datos() {
+        palabra = etPalabra.getText().toString();
+        esMinuscula = cbMinuscula.isChecked();
     }
 
     private void inicializarVistas() {
@@ -49,21 +73,7 @@ public class MainActivity extends AppCompatActivity {
         btnProcesar = findViewById(R.id.btnProcesar);
         cbMinuscula = findViewById(R.id.cbMinuscula);
     }
-    private void obtenerInformacion(){
-        palabra = etPalabra.getText().toString();
-        // getChecked --- is checked
-        esMinuscula = cbMinuscula.isChecked();
-        contar =0;
-        for(int i = this.palabra.length()-1; i>=0; i--){
-            char conteo= this.palabra.charAt(i);
-            if (a == palabra.charAt(i) || e ==palabra.charAt(i)) {
-            contar++;
-            }
-        }
 
-        Toast.makeText(this,"tiene"+contar, Toast.LENGTH_SHORT).show();
-
-    }
 }
 
 
