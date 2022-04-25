@@ -8,7 +8,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     //Atributos
@@ -36,10 +39,23 @@ public class MainActivity extends AppCompatActivity {
         //Es igual al codigo anterior
         // INVESTIGAR LAS FUNCIONES DE LANBDA FUCTIONS
         btnProcesar.setOnClickListener(view -> Datos());
-        btnContar.setOnClickListener(view -> contarVocal());
+        // btnContar.setOnClickListener(view -> contarVocal());
+        btnContar.setOnClickListener(view -> contarVocales());
+    }
+//Solucion realizada en clases
+    private void contarVocales() {
+        obtenerInformacion();
+        ArrayList<Character> vocales = new ArrayList<>(Arrays.asList('a','e','i','o','u'));
+        int cantidadVocales = 0;
+       // String palabraMinuscula = palabra.toLowerCase();
+        for (int i = 0; i< palabra.length(); i ++){
+            if (vocales.contains(palabra.charAt(i))){
+                    cantidadVocales++;
+            }
+        }
     }
 
-    private void contarVocal() {
+   /* private void contarVocal() {
         Datos();
         if (palabra.contains("a") || palabra.contains("A")) {
             contar += 1;
@@ -60,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         contar = 0;
         Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
     }
-
+*/
 
     private void Datos() {
         palabra = etPalabra.getText().toString();
@@ -72,42 +88,16 @@ public class MainActivity extends AppCompatActivity {
         btnContar = findViewById(R.id.btnContar);
         btnProcesar = findViewById(R.id.btnProcesar);
         cbMinuscula = findViewById(R.id.cbMinuscula);
-    }
 
+    }
+    private void obtenerInformacion(){
+        palabra = etPalabra.getText().toString();
+        esMinuscula = cbMinuscula.isChecked();
+        convertirAMinuscula();
+    }
+    private void convertirAMinuscula(){
+        if (esMinuscula ){
+            palabra = palabra.toLowerCase();
+        }
+    }
 }
-
-
-
-
-
-/*
-* String cadena = "Mi nombre es Luis Cabrera. Tengo un blog en parzibyte.me/blog y aunque no es mi lenguaje favorito, me gusta Java";
-
-        // Crear e inicializar mapa
-        // Tutorial de mapas: https://parzibyte.me/blog/2020/01/07/hashmap-java-tutorial-ejemplos/
-        HashMap<String, Integer> hashMap = new HashMap<>();
-        hashMap.put("a", 0);
-        hashMap.put("e", 0);
-        hashMap.put("i", 0);
-        hashMap.put("o", 0);
-        hashMap.put("u", 0);
-
-        // Recorremos la cadena letra por letra y vemos si es una vocal
-        for (int x = 0; x < cadena.length(); x++) {
-            char letraActual = cadena.charAt(x);
-            if (esVocal(letraActual)) {
-                // La clave es la vocal en sí, pero en minúscula
-                String clave = String.valueOf(letraActual).toLowerCase();
-                // Aumentamos el conteo en esa clave
-                hashMap.put(clave, hashMap.get(clave) + 1);
-            }
-        }
-        System.out.printf("Resultados para '%s':\n", cadena);
-        //Imprimir resultados
-        for (HashMap.Entry<String, Integer> entry : hashMap.entrySet()) {
-            System.out.printf("Vocal: %s. Conteo: %d\n", entry.getKey(), entry.getValue());
-        }
-    }
-
-    private static boolean esVocal(char letra) {
-        return "aeiou".contains(String.valueOf(letra).toLowerCase());*/
